@@ -1,0 +1,11 @@
+#Emacs
+*~
+# Python
+**/__pycache__
+dist
+*.egg-info
+venv/bin
+venv/include
+venv/lib
+venv/lib64
+venv/pyvenv.cfg
