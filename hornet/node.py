@@ -1,16 +1,16 @@
 """Expose a node."""
 import graphviz as _graphviz
-from systems.hornet import state as _state
+from hornet import state as _state
 
 
 class Node:
-    """Implement `NodeProtocol`."""
+    """Represent a node."""
 
-    def __init__(self, identity: str):
+    def __init__(self, identity: str, attrs: dict = {}):
         """Put a node in a graph."""
         self.identity = identity
         self.digraph: _graphviz.Digraph = _state.get_digraph()
-        self.digraph.node(self.identity)
+        self.digraph.node(self.identity, None, attrs)
 
     def __lt__(self, other: "Node") -> "Node":
         """Implement '<'."""

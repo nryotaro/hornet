@@ -1,7 +1,7 @@
 """States for graphs."""
 import graphviz as _graphviz
 
-from systems.hornet.protocol import (
+from hornet.protocol import (
     DigGraphProtocol,
     SubGraphProtocol,
 )
