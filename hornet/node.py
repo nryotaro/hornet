@@ -13,7 +13,12 @@ class Node:
         self.digraph.node(self.identity, None, attrs)
 
     def __lt__(self, other: "Node") -> "Node":
-        """Implement '<'."""
+        """Add an edge from `other` to `self`."""
+        self._select_inner(other).edge(other.identity, self.identity)
+        return other
+
+    def __gt__(self, other: "Node") -> "Node":
+        """Add an edge from `self` to `other`."""
         self._select_inner(other).edge(
             self.identity,
             other.identity,
@@ -32,4 +37,5 @@ class Node:
         return other
 
     def _select_inner(self, other: "None") -> _graphviz.Digraph:
+        """Return the `inner` digraph of `self` or `other`."""
         return _state.select_inner(self.digraph, other.digraph)
