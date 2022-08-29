@@ -1,4 +1,5 @@
-"""Expose a node."""
+"""Expose the node."""
+import typing
 import graphviz as _graphviz
 from hornet import state as _state
 
@@ -12,18 +13,37 @@ class Node:
         self.digraph: _graphviz.Digraph = _state.get_digraph()
         self.digraph.node(self.identity, None, attrs)
 
-    def __lt__(self, other: "Node") -> "Node":
+    def __lt__(self, other: "Node" | typing.Iterable["Node"]) -> "Node":
         """Add an edge from `other` to `self`."""
-        self._select_inner(other).edge(other.identity, self.identity)
-        return other
+        nodes = other
+        if hasattr(other, "__iter__"):
+            result = None
+            nodes = other
+        else:
+            result = other
+            nodes = [other]
+
+        for node in nodes:
+            self._select_inner(node).edge(node.identity, self.identity)
+
+        return result
 
     def __gt__(self, other: "Node") -> "Node":
         """Add an edge from `self` to `other`."""
-        self._select_inner(other).edge(
-            self.identity,
-            other.identity,
-        )
-        return other
+        nodes = other
+        if hasattr(other, "__iter__"):
+            result = None
+            nodes = other
+        else:
+            result = other
+            nodes = [other]
+
+        for node in nodes:
+            self._select_inner(node).edge(
+                self.identity,
+                node.identity,
+            )
+        return result
 
     def __sub__(self, other: "Node") -> "Node":
         """Implement - ."""
