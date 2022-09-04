@@ -42,6 +42,10 @@ class Digraph:
         self.digraph.render(cleanup=self._cleanup, outfile=self._filepath)
         _state.remove_digraph(self)
 
+    def is_cluster(self) -> bool:
+        """Return `False` since this class is not for cluster."""
+        return False
+
 
 class SubGraph:
     """Represent a subgraph."""
@@ -64,6 +68,10 @@ class SubGraph:
         """Return true if it holds `digraph`."""
         return self.digraph is digraph
 
+    def is_cluster(self) -> bool:
+        """Return `False` since this class is not for cluster."""
+        return False
+
 
 class Cluster:
     """Represent a cluster."""
@@ -82,6 +90,10 @@ class Cluster:
         _state.remove_subgraph(self)
         parent = _state.get_inner_graph()
         parent.subgraph(self.digraph)
+
+    def is_cluster(self) -> bool:
+        """Return `True`."""
+        return True
 
     def has(self, digraph: _graphviz.Digraph):
         """Return true if it holds `digraph`."""

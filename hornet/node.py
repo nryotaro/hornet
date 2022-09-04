@@ -26,7 +26,7 @@ class Node:
             nodes = [other]
 
         for node in nodes:
-            self._select_inner(node).edge(node.identity, self.identity)
+            self._select_edge_holder(node).edge(node.identity, self.identity)
 
         return result
 
@@ -51,7 +51,7 @@ class Node:
             nodes = [other]
 
         for node in nodes:
-            self._select_inner(node).edge(
+            self._select_edge_holder(node).edge(
                 self.identity,
                 node.identity,
             )
@@ -67,7 +67,7 @@ class Node:
 
     def __sub__(self, other: "Node") -> "Node":
         """Implement - ."""
-        self._select_inner(other).edge(
+        self._select_edge_holder(other).edge(
             self.identity,
             other.identity,
             None,
@@ -76,6 +76,6 @@ class Node:
         )
         return other
 
-    def _select_inner(self, other: "None") -> _graphviz.Digraph:
+    def _select_edge_holder(self, other: "None") -> _graphviz.Digraph:
         """Return the `inner` digraph of `self` or `other`."""
-        return _state.select_inner(self.digraph, other.digraph)
+        return _state.select_edge_holder(self.digraph, other.digraph)

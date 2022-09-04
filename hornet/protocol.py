@@ -1,6 +1,6 @@
 """Define protocols."""
 import typing
-from graphviz import Digraph
+import graphviz as graphviz
 
 
 class NodeProtocol(typing.Protocol):
@@ -14,12 +14,12 @@ class NodeProtocol(typing.Protocol):
 class SubGraphProtocol(typing.Protocol):
     """Represent a subgraph."""
 
-    @property
-    def identity(
-        self,
-    ) -> str:
-        """Identity."""
-
 
 class DigGraphProtocol(typing.Protocol):
     """Represent a digraph."""
+
+    def has(self, digraph: graphviz.Digraph) -> bool:
+        """Return `True` if this instance holds `digraph`."""
+
+    def is_cluster(self) -> bool:
+        """Return `True` if this instance is a cluster."""

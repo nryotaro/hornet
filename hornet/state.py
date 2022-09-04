@@ -6,7 +6,7 @@ from hornet.protocol import (
     SubGraphProtocol,
 )
 
-_state = []
+_state: list[DigGraphProtocol | SubGraphProtocol] = []
 
 _last_cluster_id = 0
 
@@ -50,13 +50,22 @@ def remove_subgraph(graph: SubGraphProtocol):
     _state.pop()
 
 
-def select_inner(
+def select_edge_holder(
     digraph1: _graphviz.Digraph, digraph2: _graphviz.Digraph
 ) -> _graphviz.Digraph:
-    """Select inner one."""
+    """Return one of the two parameters that shall own edges."""
+    order = []
     for digraph in _state[::-1]:
         for param in [digraph1, digraph2]:
             if digraph.has(param):
-                return param
+                order.append((digraph, param))
 
-    raise RuntimeError("Out of context.")
+    if len(order) == 1:
+        return order[0][1]
+    elif len(order) == 2:
+        if order[0][0].is_cluster:
+            return order[1][1]
+        else:
+            return order[0][1]
+    else:
+        raise RuntimeError("Out of context.")
