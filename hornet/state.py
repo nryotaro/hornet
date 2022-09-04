@@ -6,9 +6,7 @@ from hornet.protocol import (
     SubGraphProtocol,
 )
 
-
 _state = []
-
 
 _last_cluster_id = 0
 
@@ -23,11 +21,6 @@ def generate_cluster_id() -> int:
 
 def put_diggraph(graph: DigGraphProtocol):
     """Put a diggraph to state."""
-    _state.append(graph)
-
-
-def put_subgraph(graph: SubGraphProtocol):
-    """Register a subgraph."""
     _state.append(graph)
 
 

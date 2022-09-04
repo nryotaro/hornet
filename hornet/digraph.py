@@ -52,7 +52,7 @@ class SubGraph:
 
     def __enter__(self):
         """Declare a subgraph."""
-        _state.put_subgraph(self)
+        _state.put_diggraph(self)
 
     def __exit__(self, exc_type, exc_value, traceback):
         """Add itself to the parent graph."""
@@ -75,7 +75,7 @@ class Cluster:
 
     def __enter__(self):
         """Declare a subgraph."""
-        _state.put_subgraph(self)
+        _state.put_diggraph(self)
 
     def __exit__(self, exc_type, exc_value, traceback):
         """Add itself to the parent graph."""
