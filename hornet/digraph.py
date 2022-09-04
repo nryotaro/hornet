@@ -12,7 +12,12 @@ class Digraph:
     """
 
     def __init__(
-        self, filepath: str, graph_attrs: dict[str, str], cleanup=False
+        self,
+        filepath: str,
+        graph_attrs: dict[str, str],
+        node_attrs: dict[str, str] = dict(),
+        edge_attrs: dict[str, str] = dict(),
+        cleanup=False,
     ):
         """Define digraph attributes."""
         self._filepath = filepath
@@ -26,6 +31,8 @@ class Digraph:
             filename=f"{name}.gv",
             format=extension[1:],
             graph_attr=self._graph_attrs,
+            node_attr=node_attrs,
+            edge_attr=edge_attrs,
         )
 
     def has(self, digraph: _graphviz.Digraph):
@@ -50,9 +57,18 @@ class Digraph:
 class SubGraph:
     """Represent a subgraph."""
 
-    def __init__(self, graph_attrs: dict[str, str] = dict()):
+    def __init__(
+        self,
+        graph_attrs: dict[str, str] = dict(),
+        node_attrs: dict[str, str] = dict(),
+        edge_attrs: dict[str, str] = dict(),
+    ):
         """Use this constructor with `with` block."""
-        self.digraph = _graphviz.Digraph(graph_attr=graph_attrs)
+        self.digraph = _graphviz.Digraph(
+            graph_attr=graph_attrs,
+            node_attr=node_attrs,
+            edge_attr=edge_attrs,
+        )
 
     def __enter__(self):
         """Declare a subgraph."""
@@ -76,10 +92,20 @@ class SubGraph:
 class Cluster:
     """Represent a cluster."""
 
-    def __init__(self, graph_attrs: dict[str, str] = dict()):
+    def __init__(
+        self,
+        graph_attrs: dict[str, str] = dict(),
+        node_attrs: dict[str, str] = dict(),
+        edge_attrs: dict[str, str] = dict(),
+    ):
         """Use this constructor with `with` block."""
         name = f"cluster_{_state.generate_cluster_id()}"
-        self.digraph = _graphviz.Digraph(name=name, graph_attr=graph_attrs)
+        self.digraph = _graphviz.Digraph(
+            name=name,
+            graph_attr=graph_attrs,
+            node_attr=node_attrs,
+            edge_attr=edge_attrs,
+        )
 
     def __enter__(self):
         """Declare a subgraph."""
