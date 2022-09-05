@@ -1,5 +1,6 @@
 """Expose the node."""
 import typing
+import uuid
 import graphviz as _graphviz
 from hornet import state as _state
 
@@ -7,11 +8,11 @@ from hornet import state as _state
 class Node:
     """Represent a node."""
 
-    def __init__(self, identity: str, attrs: dict = {}):
+    def __init__(self, label: str, attrs: dict = {}):
         """Put a node in a graph."""
-        self.identity = identity
+        self.identity = uuid.uuid4().hex[:8]
         self.digraph: _graphviz.Digraph = _state.get_digraph()
-        self.digraph.node(self.identity, None, attrs)
+        self.digraph.node(self.identity, label, attrs)
 
     def __lshift__(
         self, other: "Node" | typing.Iterable["Node"] | typing.Iterator["Node"]

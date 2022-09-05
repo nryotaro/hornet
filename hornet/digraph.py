@@ -17,7 +17,7 @@ class Digraph:
         graph_attrs: dict[str, str],
         node_attrs: dict[str, str] = dict(),
         edge_attrs: dict[str, str] = dict(),
-        cleanup=False,
+        cleanup=True,
     ):
         """Define digraph attributes."""
         self._filepath = filepath
