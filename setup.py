@@ -1,4 +1,4 @@
-"""Write configurations to setup.cfg."""
+"""Write configurations to pyproject.toml."""
 from setuptools import setup
 
 setup()
